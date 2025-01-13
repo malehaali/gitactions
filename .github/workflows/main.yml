@@ -1,28 +1,9 @@
-version: "3.8"
-
-services:
-  web:
-    image: nginx:latest
-    container_name: my_nginx_container
-    ports:
-      - "8080:80"
-    volumes:
-      - ./html:/usr/share/nginx/html
-    networks:
-      - my_network
-
-  app:
-    image: node:14
-    container_name: my_node_app
-    working_dir: /usr/src/app
-    volumes:
-      - ./app:/usr/src/app
-    ports:
-      - "3000:3000"
-    networks:
-      - my_network
-    command: npm start
-
-networks:
-  my_network:
-    driver: bridge
+name: CI Pipeline
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run a script
+        run: echo 'Hello, World!'
